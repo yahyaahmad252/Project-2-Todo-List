@@ -1,22 +1,29 @@
 const express = require('express');
 let app = express();
+app.use(express.json());
 const db = require('./db');
 const todo = require('./todo');
 
 app.get('/' , (req , res)=>{
+
+   res.send('GET / is working')
+
+})
+
+app.get('/tasks' , (req , res)=>{
    todo.find({} , (err , data)=>{
         res.json(data)
    })
 })
 
 
-app.post('/insert' , (req , res)=>{
+app.post('/tasks' , (req , res)=>{
 
-   db.insertMany([{title: req.body.title , isCompleted: req.body.isCompleted}] , (err)=>{
+    todo.create(req.body , (err , newTsak)=>{
        if(err){
            console.log('err => ' + err);
        }else{
-           res.json("Create New ToDo Successfully");
+           res.status(201).json("Create New ToDo Successfully");
        }
    })
 
