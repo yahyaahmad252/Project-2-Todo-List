@@ -40,6 +40,20 @@ app.delete('/tasks/:id' , (req , res)=>{
     })
 })
 
+
+app.delete('/tasks' , (req , res)=>{
+    todo.deleteMany({isCompleted : true} , (err , getTask)=>{
+        if(err){
+            console.log(err);
+        }else{
+            getTask.deletedCount === 0 ?  res.status(404).json('There are no Completed Todo')
+            : res.json('Delete All ToDo Successfully')
+             
+        }
+    })
+})
+
+
 app.put('/tasks/:id' , (req , res)=>{
     todo.updateOne({_id: req.params.id} , {title: req.body.newTitle} , (err , getTask)=>{
         if(err){
@@ -51,6 +65,19 @@ app.put('/tasks/:id' , (req , res)=>{
         }
     })
 })
+
+app.put('/tasks/:id/:isCompleted' , (req , res)=>{
+    todo.updateOne({_id: req.params.id} , {isCompleted: req.params.isCompleted} , (err , getTask)=>{
+        if(err){
+            console.log(err);
+            res.status(500).json(err)
+        }else{
+            getTask.modifiedCount === 1 ? res.json('Update New ToDo Successfully')
+            : res.status(404).json('This Todo Is Not Found')
+        }
+    })
+})
+
 
 app.get('/filter' , (req , res)=>{
     todo.find({isCompleted: req.query.isCompleted} , (err , data)=>{
