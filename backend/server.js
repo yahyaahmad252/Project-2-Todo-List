@@ -52,6 +52,40 @@ app.put('/tasks/:id' , (req , res)=>{
     })
 })
 
+app.get('/filter' , (req , res)=>{
+    todo.find({isCompleted: req.query.isCompleted} , (err , data)=>{
+        if(err){
+            console.log(err);
+            res.status(err)
+        }else{
+            res.json(data);
+        }
+    })
+})
+
+/*
+app.get('/complated' , (req , res)=>{
+    todo.find({isCompleted: true} , (err , data)=>{
+        if(err){
+            console.log(err);
+            res.status(err)
+        }else{
+            res.json(data);
+        }
+    })
+})
+
+app.get('/not_complated' , (req , res)=>{
+    todo.find({isCompleted: false} , (err , data)=>{
+        if(err){
+            console.log(err);
+            res.status(err)
+        }else{
+            res.json(data);
+        }
+    })
+})
+*/
 
 app.listen(3000 , ()=>{
     console.log('express connect');
