@@ -26,8 +26,32 @@ app.post('/tasks' , (req , res)=>{
            res.status(201).json("Create New ToDo Successfully");
        }
    })
-
 })
+
+app.delete('/tasks/:id' , (req , res)=>{
+    todo.deleteOne({_id : req.params.id} , (err , getTask)=>{
+        if(err){
+            console.log(err);
+        }else{
+            getTask.deletedCount === 1 ? res.json('Delete New ToDo Successfully')
+             : res.status(404).json('This Todo Is Not Found')
+            
+        }
+    })
+})
+
+app.put('/tasks/:id' , (req , res)=>{
+    todo.updateOne({_id: req.params.id} , {title: req.body.newTitle} , (err , getTask)=>{
+        if(err){
+            console.log(err);
+            res.status(500).json(err)
+        }else{
+            getTask.modifiedCount === 1 ? res.json('Update New ToDo Successfully')
+            : res.status(404).json('This Todo Is Not Found')
+        }
+    })
+})
+
 
 app.listen(3000 , ()=>{
     console.log('express connect');
