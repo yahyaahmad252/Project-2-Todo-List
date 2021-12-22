@@ -4,4 +4,39 @@
 
 .Todo{
   border: blue solid 5px;
+  padding: 10px;
+}
+
+.parent{
+  display: flex;
+  justify-content: space-between;
+}
+
+.parent .child{
+  width: calc(100% / 4);
+}
+
+.parent .child:last-child{
+  display: block;
+  background-color: red;
+  border: none;
+  width: 100px;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.Add{
+  border: 2px solid green
+}
+
+
+span{
+  text-decoration: line-through;
 }
